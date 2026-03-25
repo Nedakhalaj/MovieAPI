@@ -10,16 +10,16 @@ data class MovieApiModel (
 data class MovieDetailsApi(
 
     @SerializedName("#TITLE")
-    val title:String,
+    val title:String?,
 
     @SerializedName("#RANK")
-    val rank: Double,
+    val rank: Double?,
 
     @SerializedName("#ACTORS")
-    val actors:String,
+    val actors:String?,
 
     @SerializedName("#IMG_POSTER")
-    val posterUrl: String
+    val posterUrl: String?
 
 )
 

@@ -9,7 +9,7 @@ class ApiRepository {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://imdb.iamidiotareyoutoo.com/")
+            .baseUrl("https://imdb-api.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

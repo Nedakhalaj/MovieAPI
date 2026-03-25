@@ -5,10 +5,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiInterface {
-    //define all apis in this interface
-    //https://imdb.iamidiotareyoutoo.com/search?q=matrix
+    // Mock API for testing - returns fake data
+    // This will help us test if the app logic works
 
-    @GET("search")
-    suspend fun searchMovie( @Query("q") q: String): MovieApiModel
+    @GET("test")
+    suspend fun searchMovie(
+        @Query("q") search: String
+    ): MovieApiModel
 
 }
