@@ -26,23 +26,9 @@ class MoviesListViewModel : ViewModel(){
         viewModelScope.launch {
             try {
                 println("Searching for: $movieName")
-                
-                // Return mock data to test app logic
-                val mockMovie = MovieApiModel(
-                    ok = true,
-                    description = listOf(
-                        MovieDetailsApi(
-                            title = "Mock Movie: $movieName",
-                            rank = 8.5,
-                            actors = "Test Actor 1, Test Actor 2",
-                            posterUrl = "https://via.placeholder.com/300x450"
-                        )
-                    )
-                )
-                
-                movie = mockMovie
-                println("Mock Response: $movie")
-                println("Description size: ${movie.description?.size}")
+                movie = api.apiInterface.searchMovie(search=movieName)
+                println("API Response: $movie")
+                println("Search results size: ${movie.search?.size}")
                 movieResultForActivity.value = movie
                 errorMessage.value = null
             } catch (e: Exception) {

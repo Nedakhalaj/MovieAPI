@@ -30,22 +30,20 @@ class MoviesListActivity : ComponentActivity() {
         }
 
         viewModel.movieResultForActivity.observe(this){ movie->
-            if (!movie.description.isNullOrEmpty()) {
-                val movieDetails = movie.description[0]
+            if (!movie.search.isNullOrEmpty()) {
+                val movieDetails = movie.search[0]
                 
                 binding.txtTitle.text = movieDetails.title ?: "No title available"
-                binding.txtImdbRank.text = movieDetails.rank?.toString() ?: "No rating available"
+                binding.txtImdbRank.text = movieDetails.rank ?: "No rating available"
                 binding.txtActors.text = movieDetails.actors ?: "No actors information"
                 
                 if (!movieDetails.posterUrl.isNullOrEmpty()) {
                     binding.imgPoster.load(movieDetails.posterUrl)
                 }
-                // If no poster, just leave empty
             } else {
                 binding.txtTitle.text = "No results found"
                 binding.txtImdbRank.text = ""
                 binding.txtActors.text = ""
-                // No poster available
             }
         }
 

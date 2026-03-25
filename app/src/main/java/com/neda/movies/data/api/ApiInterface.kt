@@ -5,12 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiInterface {
-    // Mock API for testing - returns fake data
-    // This will help us test if the app logic works
-
-    @GET("test")
+    // OMDB API with demo key
+    @GET("/")
     suspend fun searchMovie(
-        @Query("q") search: String
+        @Query("s") search: String,
+        @Query("apikey") apiKey: String = "thewdb"
     ): MovieApiModel
-
 }
