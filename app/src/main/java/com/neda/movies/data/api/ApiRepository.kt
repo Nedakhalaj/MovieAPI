@@ -9,13 +9,11 @@ class ApiRepository {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://imdb.iamidiotareyoutoo.com/")
+            .baseUrl("https://www.omdbapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        //API connection
         apiInterface = retrofit.create(ApiInterface::class.java)
-
     }
 
 }

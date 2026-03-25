@@ -3,23 +3,27 @@ package com.neda.movies.data.models
 import com.google.gson.annotations.SerializedName
 
 data class MovieApiModel (
-    val ok : Boolean,
-    val description : List<MovieDetailsApi>
+    @SerializedName("Search")
+    val search: List<MovieDetailsApi>?,
+    @SerializedName("totalResults")
+    val totalResults: String?,
+    @SerializedName("Response")
+    val response: String?
 )
 
 data class MovieDetailsApi(
 
-    @SerializedName("#TITLE")
-    val title:String,
+    @SerializedName("Title")
+    val title:String?,
 
-    @SerializedName("#RANK")
-    val rank: Double,
+    @SerializedName("imdbRating")
+    val rank: String?,
 
-    @SerializedName("#ACTORS")
-    val actors:String,
+    @SerializedName("Actors")
+    val actors:String?,
 
-    @SerializedName("#IMG_POSTER")
-    val posterUrl: String
+    @SerializedName("Poster")
+    val posterUrl: String?
 
 )
 

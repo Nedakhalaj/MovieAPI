@@ -5,10 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiInterface {
-    //define all apis in this interface
-    //https://imdb.iamidiotareyoutoo.com/search?q=matrix
-
-    @GET("search")
-    suspend fun searchMovie( @Query("q") q: String): MovieApiModel
-
+    // OMDB API with demo key
+    @GET("/")
+    suspend fun searchMovie(
+        @Query("s") search: String,
+        @Query("apikey") apiKey: String = "thewdb"
+    ): MovieApiModel
 }

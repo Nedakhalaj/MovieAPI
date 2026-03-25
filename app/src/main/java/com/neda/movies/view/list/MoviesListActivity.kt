@@ -1,6 +1,7 @@
 package com.neda.movies.view.list
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -19,18 +20,40 @@ class MoviesListActivity : ComponentActivity() {
         viewModel = ViewModelProvider(this).get( MoviesListViewModel::class)
 
         binding.btnSearch.setOnClickListener {
-            val movieName = binding.edtMovieName.text.toString()
-            viewModel.searchMovieByName(movieName)
+            val movieName = binding.edtMovieName.text.toString().trim()
+            if (movieName.isNotEmpty()) {
+                Toast.makeText(this, "Searching for: $movieName", Toast.LENGTH_SHORT).show()
+                viewModel.searchMovieByName(movieName)
+            } else {
+                Toast.makeText(this, "Please enter a movie name", Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewModel.movieResultForActivity.observe(this){ movie->
-            val movie = movie.description.get(0)
-
-            binding.txtTitle.text = movie.title
-            binding.txtImdbRank.text = movie.rank.toString()
-            binding.txtActors.text = movie.actors
-            binding.imgPoster.load( movie.posterUrl )
+            if (!movie.search.isNullOrEmpty()) {
+                val movieDetails = movie.search[0]
+                
+                binding.txtTitle.text = movieDetails.title ?: "No title available"
+                binding.txtImdbRank.text = movieDetails.rank ?: "No rating available"
+                binding.txtActors.text = movieDetails.actors ?: "No actors information"
+                
+                if (!movieDetails.posterUrl.isNullOrEmpty()) {
+                    binding.imgPoster.load(movieDetails.posterUrl)
+                }
+            } else {
+                binding.txtTitle.text = "No results found"
+                binding.txtImdbRank.text = ""
+                binding.txtActors.text = ""
+            }
         }
 
+        viewModel.errorMessage.observe(this){ error->
+            if (error != null) {
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                binding.txtTitle.text = error
+                binding.txtImdbRank.text = ""
+                binding.txtActors.text = ""
+            }
+        }
     }
 }
